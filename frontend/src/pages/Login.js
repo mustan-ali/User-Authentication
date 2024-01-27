@@ -47,7 +47,7 @@ export default function Login() {
                     value={password}
                 />
 
-                <button>Login In</button>
+                <button>Log In</button>
 
                 {message && <p className={`message ${isSuccess ? 'green' : 'red'}`}>{message}</p>}
             </form>
