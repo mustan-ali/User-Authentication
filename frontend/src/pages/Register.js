@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Register() {
+    
+    const { login } = useContext(AuthContext);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -21,6 +24,7 @@ export default function Register() {
         if (res.status === 200) {
             setMessage(data.message);
             setIsSuccess(true);
+            login(data.email);
         }
         else {
             setMessage(data.message);
