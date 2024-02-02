@@ -95,3 +95,27 @@ form.login {
   border: 1px solid var(--primary);
   color: var(--primary);
 }
+
+.status-bar div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.status-bar div p {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+.status-bar button {
+  background: var(--primary);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  cursor: pointer;
+}
