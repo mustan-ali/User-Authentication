@@ -7,7 +7,10 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
 
-    const login = (userData) => setUser(userData);
+    const login = (userData) => {
+        setUser(userData)
+        navigate('/');
+    };
 
     const logout = () => {
         setUser(null);
