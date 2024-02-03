@@ -24,7 +24,7 @@ export default function Login() {
         if (res.status === 200) {
             setMessage(data.message);
             setIsSuccess(true);
-            login(data.email);
+            login(data);
         }
         else {
             setMessage(data.message);
