@@ -4,16 +4,38 @@ import { useNavigate } from 'react-router-dom';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            setUser(localStorage.getItem('user'));
-        }
-    }, []);
-
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const checkToken = async () => {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+
+            if (token) {
+                try {
+                    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/verify`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ token })
+                    });
+
+                    if (res.status === 200) {
+                        setUser(user);
+                    } else {
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('token');
+                    }
+                } catch (error) {
+                    console.error("Error verifying token:", error);
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('token');
+                }
+            }
+        };
+
+        checkToken();
+    }, []);
 
     const login = (userData) => {
         setUser(userData.email)
