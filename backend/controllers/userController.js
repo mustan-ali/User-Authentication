@@ -80,4 +80,27 @@ const registerUser = async (req, res) => {
 }
 
 
-module.exports = { loginUser, registerUser };
+const verifyToken = async (req, res) => {
+    try {
+        const token = req.body.token;
+
+        if (!token) {
+            return res.status(400).json({ message: 'Token required' });
+        }
+
+        await jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
+            if (error) {
+                return res.status(400).json({ message: 'Invalid token' });
+            }
+
+            return res.status(200).json({ message: 'Token verified', email: decoded.email });
+        }
+        );
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+
+module.exports = { loginUser, registerUser, verifyToken };
